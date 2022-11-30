@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		<title>title</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.2/marked.min.js" integrity="sha512-YCrDB5/fPsWLy0vZ1sPc6m2n9vTrSfaxH4mdyQaZVa07MRJqai+5YeOzmflXBFdj5a1Rfvpn+g4XOq3f8yCThA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js" integrity="sha512-l8Zv2WpOspqz3AvKPc6WVA+F8scqhlwjkYGU1LLLpMyZIB2xC1sBhMwDWBupth0l4qryVTTJWs1fvp7EzpatVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<style>
+			/* to yellows: stop using inline styles */
+			textarea#editor {
+				height:50vh;
+				width:100%;
+				overflow-y: scroll;
+				display:block;
+				resize: vertical;
+			}
+			textarea#editor:before {
+				content: "editor";
+			}
+		</style>
+		<script>
+			// kinda strange to abuse onload like this, oh well
+			window.onload = function() {
+				// wrap this in DOMPurify if you're going to actually use this
+				let editor = document.getElementById("editor")
+				preview.innerHTML = marked.parse(editor.defaultValue).replace(/\x0a/g, "<br/>");
+				editor.addEventListener("keyup", function() {
+					preview.innerHTML = marked.parse(editor.value).replace(/\x0a/g, "<br/>") // i ask why this is even an objective
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div id="application-body">
+			<h1> editor </h1>
+<!-- textarea's are awful and i despise them for the way i have to format them -->
+<textarea id="editor">
+# test
+## aa
+### bb
+#### cc
+* 1
+* 2
+* 3
+</textarea>
+			<hr/>
+			<h1>output</h1>
+			<span>spacing is wack because i render &bsol;r's as &lt;br&sol;&gt;'s</span>
+			<hr/>
+			<div id="preview">
+				<!-- render target -->
+			</div>
+		</div>
+	</body>
+</html>
